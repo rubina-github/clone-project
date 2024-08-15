@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Light and Dark Mode</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body{
+            transition: background-color 0.5s;
+            text-align: center;
+            margin: 0%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .mode-toggle{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .mode-toggle button{
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: black;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .mode-toggle button.selected{
+            background-color: #f1c40f;
+        }
+        body.dark-mode{
+               color: white;
+        }
+        body.dark-mode .mode-toggle button{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="mode-toggle">
+        <button id="lightModeBtn" onclick="toggleMode('light')" class="selected">
+        <i class="fas fa-sun"></i>
+    </button>
+    <button id="darkModeBtn" onclick="toggleMode('dark')">
+    <i class="fas fa-moon"></i>
+</button>
+    </div>
+    <h1>welcome to light and dark mode</h1>
+    <p>Enjoy Light and Dark Mode Switcher</p>
+    <script>
+        const body= document.body;
+        const lightModeBtn = document.getElementById('lightModeBtn');
+        const darkModeBtn = document.getElementById('darkModeBtn');
+
+        const preferredMode = localStorage.getItem('preferred-mode');
+        if (preferredMode){
+            setMode(preferredMode);
+        }
+
+        function toggleMode(mode) {
+            setMode(mode);
+            localStorage.setItem('preferred-mode',mode);
+
+        }
+         function setMode(mode){
+            body.classList.toggle('dark-mode', mode === 'dark');
+
+            if(mode==='dark'){
+                body.style.backgroundColor = '#333';
+                lightModeBtn.classList.remove('selected');
+                darkModeBtn.classList.add('selected');
+
+            }
+            else{
+                body.style.backgroundColor = '#fff';
+                lightModeBtn.classList.add('selected');
+                darkModeBtn.classList.remove('selected');
+            }
+         }
+           </script>
+</body>
+</html>
